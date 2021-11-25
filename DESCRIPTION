@@ -1,4 +1,4 @@
-Package: MMRFVariantPackage
+Package: MMRFVariant
 Type: Package
 Title: R package for variant analysis from MMRF-CoMMpass data source
 Version: 2.0.0

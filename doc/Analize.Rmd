@@ -1,6 +1,6 @@
 ---
-title: "MMRFVariantPackage - Analyze"
-package: MMRFVariantPackage
+title: "MMRFVariant - Analyze"
+package: MMRFVariant
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. Analyze}

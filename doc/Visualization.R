@@ -1,5 +1,5 @@
 ## ----setup--------------------------------------------------------------------
-library(MMRFVariantPackage)
+library(MMRFVariant)
 
 ## ---- echo = FALSE,hide=TRUE, message=FALSE,warning=FALSE---------------------
 devtools::load_all(".")

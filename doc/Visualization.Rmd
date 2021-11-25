@@ -1,7 +1,7 @@
 ---
-title: "MMRFVariantPackage - Visualize"
+title: "MMRFVariant - Visualize"
 
-package: MMRFVariantPackage
+package: MMRFVariant
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. Visualization}
@@ -11,7 +11,7 @@ vignette: >
 
 
 ```{r setup}
-library(MMRFVariantPackage)
+library(MMRFVariant)
 ```
 
 

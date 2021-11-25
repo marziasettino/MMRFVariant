@@ -12,7 +12,7 @@
 
 
 
-<title>MMRFVariantPackage - Introduction</title>
+<title>MMRFVariant - Introduction</title>
 
 <script>(function() {
   // If window.HTMLWidgets is already defined, then use it; otherwise create a
@@ -2875,11 +2875,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">MMRFVariantPackage - Introduction</h1>
+<h1 class="title toc-ignore">MMRFVariant - Introduction</h1>
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(MMRFVariantPackage)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(MMRFVariant)</a></code></pre></div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <div class="panel panel-info">
@@ -2919,8 +2919,8 @@ In this example we will fetch MMRF-CoMMpass information data from MMRF-COMMPASS 
 In this case, you should comment the previous code that fetches the MMRF-CoMMpass datasets (.csv files) from MMRF-COMMPASS Research Gateway
 </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">datatable</span>(variant.ann.example,<span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">scrollX =</span> <span class="ot">TRUE</span>, <span class="dt">keys =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<div id="htmlwidget-ca18baa8973625abaf1e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ca18baa8973625abaf1e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["rs755588843","rs755588843","rs569344016","rs569344016","rs569344016","rs569344016","rs569344016","rs2066497","rs2066497","."],["intragenic_variant","intragenic_variant","intragenic_variant","missense_variant","missense_variant","intron_variant","5_prime_UTR_variant","5_prime_UTR_variant","5_prime_UTR_variant","5_prime_UTR_variant"],["MODERATE","MODERATE","MODIFIER","MODIFIER","LOW","LOW","LOW","HIGH","HIGH","MODIFIER"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>ID<\/th>\n      <th>Effect<\/th>\n      <th>Impact<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-55482375210941454f02" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-55482375210941454f02">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["rs755588843","rs755588843","rs569344016","rs569344016","rs569344016","rs569344016","rs569344016","rs2066497","rs2066497","."],["intragenic_variant","intragenic_variant","intragenic_variant","missense_variant","missense_variant","intron_variant","5_prime_UTR_variant","5_prime_UTR_variant","5_prime_UTR_variant","5_prime_UTR_variant"],["MODERATE","MODERATE","MODIFIER","MODIFIER","LOW","LOW","LOW","HIGH","HIGH","MODIFIER"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>ID<\/th>\n      <th>Effect<\/th>\n      <th>Impact<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 <div class="panel panel-info">
 <div class="panel-heading">
 <b>Patient dataframe</b>
@@ -2930,8 +2930,8 @@ In this case, you should comment the previous code that fetches the MMRF-CoMMpas
 </div>
 </div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">datatable</span>(patient.example,<span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">scrollX =</span> <span class="ot">TRUE</span>, <span class="dt">keys =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<div id="htmlwidget-161b03331d41a59d21ae" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-161b03331d41a59d21ae">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["Death",null,null,"Death","Death","Death","NA","NA","Death","Death"],[null,null,2226,172,null,null,1328,681,786,null],[250,356,null,null,1814,223,null,null,null,1450],[1,1,1,1,1,2,2,2,2,2],["Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino"],["Stage III","Stage III","Stage III","Stage II","Stage II","Stage I","Stage I","Stage I","Stage I","Stage I"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>D_PT_PRIMARYREASON<\/th>\n      <th>D_PT_deathdy<\/th>\n      <th>D_PT_lstalive<\/th>\n      <th>DEMOG_GENDER<\/th>\n      <th>DEMOG_ETHNICITY<\/th>\n      <th>D_PT_issstage_char<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1d1ef1805a6553b7db43" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1d1ef1805a6553b7db43">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["Death",null,null,"Death","Death","Death","NA","NA","Death","Death"],[null,null,2226,172,null,null,1328,681,786,null],[250,356,null,null,1814,223,null,null,null,1450],[1,1,1,1,1,2,2,2,2,2],["Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino","Not Hispanic or Latino"],["Stage III","Stage III","Stage III","Stage II","Stage II","Stage I","Stage I","Stage I","Stage I","Stage I"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>D_PT_PRIMARYREASON<\/th>\n      <th>D_PT_deathdy<\/th>\n      <th>D_PT_lstalive<\/th>\n      <th>DEMOG_GENDER<\/th>\n      <th>DEMOG_ETHNICITY<\/th>\n      <th>D_PT_issstage_char<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <div class="panel panel-info">
 <div class="panel-heading">
 <b>Treatment dataframe</b>
@@ -2941,8 +2941,8 @@ In this case, you should comment the previous code that fetches the MMRF-CoMMpas
 </div>
 </div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">datatable</span>(trt.example,<span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">scrollX =</span> <span class="ot">TRUE</span>, <span class="dt">keys =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<div id="htmlwidget-34a39c5131c1183853cf" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-34a39c5131c1183853cf">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["Bortezomib-based","Bortezomib-based","IMIDs-based","IMIDs-based","IMIDs-based","IMIDs-based","IMIDs-based","combined bortezomib/IMIDs-based","combined bortezomib/IMIDs-based","combined bortezomib/IMIDs-based"],["Partial Responsed","Partial Responsed","Partial Responsed","Partial Responsed","Partial Responsed","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>trtclass<\/th>\n      <th>bestresp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f01e0056998907f3c104" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f01e0056998907f3c104">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["MMRF_0000","MMRF_0001","MMRF_0002","MMRF_0003","MMRF_0004","MMRF_0005","MMRF_0006","MMRF_0007","MMRF_0008","MMRF_0009"],["Bortezomib-based","Bortezomib-based","IMIDs-based","IMIDs-based","IMIDs-based","IMIDs-based","IMIDs-based","combined bortezomib/IMIDs-based","combined bortezomib/IMIDs-based","combined bortezomib/IMIDs-based"],["Partial Responsed","Partial Responsed","Partial Responsed","Partial Responsed","Partial Responsed","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response","Very Good Partial Response"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>public_id<\/th>\n      <th>trtclass<\/th>\n      <th>bestresp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
