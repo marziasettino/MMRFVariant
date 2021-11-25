@@ -35,18 +35,18 @@ library(ggpubr)
 A list of all currently integrated vignettes can be obtained through:
 
 ``` r
-vignette(package="MMRFVariantPackage")
+vignette(package="MMRFVariant")
 ```
 
 The best way to view vignettes is in your web browser:
 
 ``` r
 devtools::load_all(".")
-browseVignettes("MMRFVariantPackage")
+browseVignettes("MMRFVariant")
 ```
 
 Get the list of the example data sets
 
 ``` r
-data(package = "MMRFVariantPackage")
+data(package = "MMRFVariant")
 ```

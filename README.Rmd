@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of MMRFVariantPackage is to analize variants from MMRF-CoMMpass dataset.
+The  goal of MMRFVariantPackage is to analize variants from MMRF-CoMMpass dataset.
 
 ## Installation
 
@@ -48,19 +48,19 @@ A list of all currently integrated vignettes can be obtained through:
 
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
-vignette(package="MMRFVariantPackage")
+vignette(package="MMRFVariant")
 ```
 The best way to view vignettes is in your web browser:
 
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
 devtools::load_all(".")
-browseVignettes("MMRFVariantPackage")
+browseVignettes("MMRFVariant")
 ```
 
 Get the list of the example data sets
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
-data(package = "MMRFVariantPackage")
+data(package = "MMRFVariant")
 ```
 
