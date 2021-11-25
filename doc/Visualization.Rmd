@@ -1,0 +1,165 @@
+---
+title: "MMRFVariantPackage - Visualize"
+
+package: MMRFVariantPackage
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. Visualization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup}
+library(MMRFVariantPackage)
+```
+
+
+```{r, echo = FALSE,hide=TRUE, message=FALSE,warning=FALSE}
+devtools::load_all(".")
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(stringr)
+library(ggpubr)
+```
+
+## <b>MMRFVariant_PlotbyEffect_Impact</b>
+Visualize Impact and Effect of annotated variants.
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+variant.impact_effect<-MMRFVariant_PlotbyEffect_Impact(variant.ann,topN=50,
+                                                       height=10, width=15, 
+                                                       filenm="PlotbyEffectImpact")
+variant.impact_effect
+
+```
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+Following plot shows Impact and Effect of the top N# 50 variants.
+
+```{r figurename, echo=FALSE, fig.cap="Plot correlating Impact- Effect to variants", out.width = '90%'}
+knitr::include_graphics("imgs/Plot_impact_Effect_Variants.png")
+```
+
+## <b>MMRFVariant_PlotVariantsbyGene</b>
+### Example 1:
+Heatmap of the Number of variants by Gene.
+
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+ListGene<-c("PRDM16", "AGO1","TNNI3K") 
+
+variantsbyGene.plot<-MMRFVariant_PlotVariantsbyGene(variant.ann,ListGene)
+
+variantsbyGene.plot
+
+```
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+Following plot shows the N# of variants by Gene. Genes are provided as input in `ListGene`.On the x axis the  [dbSNP Identifiers](https://www.ncbi.nlm.nih.gov/snp/) is shown.
+
+```{r figurename2, echo=FALSE, fig.cap="Number of variants by gene in ListGene", out.width = '90%'}
+knitr::include_graphics("imgs/PlotVariantsbyGene_heatmap.png")
+```
+
+
+### Example 2:
+Heatmap of the #N of variants (top N# 20 variants).
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+
+
+variantsbyGene.plot.all<-MMRFVariant_PlotVariantsbyGene(variant.ann)
+
+variantsbyGene.plot.all
+
+```
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+Following plot shows the top N# 20 variants.  
+
+```{r fig, echo=FALSE, fig.cap="Number of variants by gene", out.width = '90%'}
+knitr::include_graphics("imgs/PlotVariantsbyGene_heatmap_all.png")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## <b>MMRFVariant_PlotVariantsbyGene</b>
+### Example 1:
+Heatmap of the Number of variants by Gene.
+
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+ListSNPs2<-c("rs755588843","rs200556051","rs745587729","rs2066497","rs760494041")
+
+impact.table<-MMRFVariant_getImpact(variant.ann,ListSNPs2)
+
+impact.table
+
+```
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+Following table shows the impacts of the SNPs provided as input in `ListSNPs2`
+
+
+```{r fig4, echo=FALSE, fig.cap="ccc", out.width = '99%'}
+knitr::include_graphics("imgs/Tab_getImpacts.png")
+```
+
+
+
+
+
+
+
+
+

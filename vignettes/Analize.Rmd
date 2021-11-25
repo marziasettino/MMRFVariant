@@ -1,0 +1,117 @@
+---
+title: "MMRFVariantPackage - Analyze"
+package: MMRFVariantPackage
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. Analyze}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## <b>MMRFVariant_SurvivalKM</b>
+
+Perform a Kaplan-Meier (KM) survival analysis that takes into account MMRF-RG clinical data and annotated variants. 
+
+**Arguments** | **Description**
+-----|-----
+patient|is the data.frame of the patient clinical data downloaded from MMRF-Commpass Researcher Gateway 
+trt|is the data.frame of the patient clinical data (i.e. treatment-response) downloaded from MMRF-Commpass Researcher Gateway 
+variant.ann| is the data.frame of the annotated variants downloaded from MMRF-Commpass Researcher Gateway
+Listvariant| is the list of the variants to analyze
+FilterBy| Column with groups to plot. This is a mandatory field.
+risk.table| show or not the risk table
+expand| show or not an expanded plot
+legend| Legend title of the figure
+xlim| x axis limits e.g. xlim = c(0, 1000). Present narrower X axis, but not affect survival estimates.
+main| main title of the plot
+labels| labels of the plot
+ylab| y axis text of the plot
+xlab| x axis text of the plot
+filename| The name of the pdf file.
+color| Define the colors/Pallete for lines.
+width| Image width
+height| Image height
+pvalue| show p-value of log-rank test
+conf.range|  show confidence intervals for point estimates of survival curves.
+dpi| Figure quality
+
+
+### Example 1:
+<b>Listvariant</b> is the list of the variants to analyze:
+
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+Listvariant<-c("rs2157615","rs61731685","rs370560636","rs116293337")
+
+surv<-MMRFVariant_SurvivalKM(patient,  
+                              trt,
+                              variant.ann,
+                              Listvariant,
+                              FilterBy="treatment", 
+                              filename=NULL,
+                              xlim = c(100,3000),
+                              conf.range = FALSE,
+                              color = c("Dark2"))
+```
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+The following plot shows the KM Survival curves correlated to <b>Listvariant</b> with respect to variants (i.e. <b>dbSNP ID</b>)  and <b>Therapy class</b>.
+
+```{r figurename1, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
+knitr::include_graphics("imgs/KM_Survival_Compact.png")
+```
+
+
+### Example 2:
+
+<p align="justify">With respect to the previous plot, the following plot shows an expanded overview of the KM survival curves in order to facilitate comparison between the survival curves for each variant with respect to treatment.
+Like the previous example, <b>Listvariant</b> is the list of the variants to analyze while in this case the  <b>expand</b> parameter is set to TRUE. </p>
+
+
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+Listvariant<-c("rs2157615","rs61731685","rs370560636","rs116293337")
+
+surv<-MMRFVariant_SurvivalKM(patient,  
+                              trt,
+                              variant.ann,
+                              Listvariant,
+                              expand = TRUE,
+                              FilterBy="treatment", 
+                              filename=NULL,
+                              xlim = c(100,3000),
+                              conf.range = FALSE,
+                              color = c("Dark2"))
+
+
+
+
+```
+
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+The following plot shows the KM Survival curves correlated to <b>Listvariant</b> with respect to variants (i.e. <b>dbSNP ID</b>)  and <b>Therapy class</b> in an expanded overview.
+
+```{r figurename2, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
+knitr::include_graphics("imgs/KM_Survival_Expanded.png")
+```
+
+
+
+

@@ -1,0 +1,122 @@
+---
+title: "MMRFVariantPackage - Introduction"
+
+package: MMRFVariantPackage
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{1. Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning=FALSE, 
+  message=FALSE,
+  comment = "#>"
+)
+```
+
+
+
+
+
+
+```{r setup}
+library(MMRFVariantPackage)
+```
+
+
+```{r, echo = FALSE,hide=TRUE, message=FALSE,warning=FALSE}
+devtools::load_all(".")
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(stringr)
+library(ggpubr)
+```
+
+## Introduction
+<div class="panel panel-info">
+<div class="panel-body">
+<p align="justify">
+MMRF-CoMMpass data can be retrieved directly from [MMRF-Commpass Researcher Gateway](https://research.themmrf.org/)
+The user can download this dataset from MMRF-Commpass Researcher Gateway importing it as a dataframe into R environment.
+</p>
+
+</div>
+</div>
+
+### Get MMRF-COMMPASS data at MMRF-CoMMpass Research Gateway
+
+<p align="justify">
+In this example we will fetch  MMRF-CoMMpass information data from MMRF-COMMPASS Research Gateway. Once the dataset (.csv files) is imported into our own R environment, it is can be explored  as a R-dataframe.
+</p>
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+patient <- read.csv("~/MMRF_CoMMpass_IA15_PER_PATIENT")
+trt <- read.csv("~/MMRF_CoMMpass_IA15_STAND_ALONE_TRTRESP")
+variant.ann <- read.csv("~/MMRF_CoMMpass_IA15a_All_Canonical_Variants")
+
+
+```
+
+
+### Examples of MMRF-COMMPASS dataframe
+  
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Annotated variant dataframe</b></div>
+<div class="panel-body">
+</div>
+</div>
+<p align="justify">
+In order to test the provided functionalities without fetch  MMRF-CoMMpass information data from MMRF-COMMPASS Research Gateway, we provide the fictitious datasets:<br>
+
+- <variant.ann.example> <br>
+- <patient.example> <br>
+- <trt.example> <br>
+
+In this case, you should comment the previous code that fetches the MMRF-CoMMpass datasets (.csv files) from MMRF-COMMPASS Research Gateway 
+</p>
+
+
+
+
+```{r  echo=TRUE, message=FALSE, warning=FALSE}
+datatable(variant.ann.example,options = list(scrollX = TRUE, keys = TRUE))
+
+```
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Patient dataframe</b></div>
+<div class="panel-body">
+</div>
+</div>
+```{r  echo=TRUE, message=FALSE, warning=FALSE}
+datatable(patient.example,options = list(scrollX = TRUE, keys = TRUE))
+
+```
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Treatment dataframe</b></div>
+<div class="panel-body">
+</div>
+</div>
+```{r  echo=TRUE, message=FALSE, warning=FALSE}
+datatable(trt.example,options = list(scrollX = TRUE, keys = TRUE))
+
+```
+
+
+
+
+
+
+

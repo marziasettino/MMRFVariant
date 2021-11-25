@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# MMRFVariantPackage
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of MMRFVariantPackage is to analize variants from MMRF-CoMMpass dataset.
+
+## Installation
+
+Once R (version > “4.0”) has been started, you can install the released version of MMRFVariantPackage from GitHub with:
+
+``` r
+devtools::install_github("marziasettino/MMRFVariantPackage", build_vignettes = TRUE)
+library(MMRFVariantPackage)
+```
+
+## Required libraries
+
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(stringr)
+library(ggpubr)
+```
+
+
+## Vignettes
+A list of all currently integrated vignettes can be obtained through:
+
+
+
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+vignette(package="MMRFVariantPackage")
+```
+The best way to view vignettes is in your web browser:
+
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+devtools::load_all(".")
+browseVignettes("MMRFVariantPackage")
+```
+
+Get the list of the example data sets
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+data(package = "MMRFVariantPackage")
+```
+
