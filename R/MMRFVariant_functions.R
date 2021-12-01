@@ -663,7 +663,7 @@ MMRFVariant_GetImpact2<- function(variant.ann,Listvariant,filenm="PlotImpact",he
 #' @param variant.ann is the dataframe of annotated variants downloaded from MMRF-Commpass Researcher Gateway 
 #' (i.e. MMRF_CoMMpass_IA14a_All_Canonical_Variants file) and imported into environment
 #' @param ListGene is the list of the genes to analyze.
-#' @param topN is the top number of variant count
+#' @param topN is the top number of variant count to visualize
 #' @param filenm is the name of the png file. If filenm is Null, the plot is draw but it is not saved.
 #' @param width Image width
 #' @param height Image height
@@ -766,6 +766,7 @@ MMRFVariant_PlotVariantsbyGene<- function(variant.ann,ListGene=NULL,topN=20,file
    
   
     variant.summary<- variant.summary[variant.summary$Gene %in% ListGene, ] 
+    variant.summary<- head(variant.summary,topN)
     msg<-""
   }
   
