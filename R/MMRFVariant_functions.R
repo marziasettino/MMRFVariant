@@ -164,7 +164,8 @@ MMRFVariant_SurvivalKM <- function(
     surv.summary<-MMRFVariant_SurvivalKM_Summary(patient,  
                                                  trt,
                                                  variant.ann,
-                                                 Listvariant,
+                                                 #list.variant,
+                                                 ListSNPs,
                                                  FilterBy=FilterBy, 
                                                  filename=filename,
                                                  xlim = c(100,3000),
@@ -433,25 +434,37 @@ MMRFVariant_SurvivalKM_Summary <- function(
   conf.range = TRUE) {
   
   plot.list <- list()
+  surv<-NULL
   
- 
-  for(i in 1:length(list.variant)){
+  
+  
+    for(i in 1:length(list.variant)){
       print(list.variant[i])
-      
+     
+      result = tryCatch({ 
       surv<-MMRFVariant_SurvivalKM(patient,  
-                                    trt,
-                                    variant.ann,
-                                    list.variant[i],
-                                    FilterBy=FilterBy, 
-                                    filename=NULL,
-                                    xlim = c(100,3000),
-                                    conf.range = FALSE,
-                                    color = c("Dark2"))
+                                   trt,
+                                   variant.ann,
+                                   list.variant[i],
+                                   FilterBy=FilterBy, 
+                                   filename=NULL,
+                                   xlim = c(100,3000),
+                                   conf.range = FALSE,
+                                   color = c("Dark2"))
       
+      }, error = function(e) {
+        i<-i+1
+        print(paste("ERROR",list.variant[i]))
+      }
+      )  
+      plot.list[[i]]<-surv
       
-     plot.list[[i]]<-surv
+    }  #for
     
-  }  #for
+    
+  plot.list<-plot.list[!sapply(plot.list,is.null)]
+  
+  
   
   plt<-arrange_ggsurvplots(plot.list, print = TRUE,
                             ncol = 2, nrow = length(list.variant)/2, risk.table.height = 0.4)
