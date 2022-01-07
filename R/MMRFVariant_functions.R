@@ -169,33 +169,47 @@ MMRFVariant_SurvivalKM <- function(
                                    conf.range = FALSE,
                                    color = c("Dark2"))
       
+      plot.list[[i]]<-surv
+      
     }, error = function(e) {
-      print(paste("Only this group found with respect to: ",list.variant[i]))
+      print(paste("Only one group found with respect to: ",list.variant[i]))
       i<-i+1
     },warning = function(e) {
-      print(paste("Only this group found with respect to:",list.variant[i]))
+      print(paste("Only one group found with respect to:",list.variant[i]))
       i<-i+1
     },finally = function(f) {
-      print(paste("Only this group found with respect to:\n",list.variant[i]))
+      print(paste("Only one group found with respect to:\n",list.variant[i]))
       i<-i+1
     }
     
     )  #tryCatch
     
+    # result = tryCatch({ 
+    #   surv
+    #   plot.list[[i]]<-surv
+    # }, error = function(e) {
+    #   print(paste("mmmmmmmmmmm"))
+    #   i<-i+1
+    # }
+    # )
     
-    if (!is.null(surv)) {
-      plot.list[[i]]<-surv
-    } 
+    
+    
+   # if (!is.null(surv)) {
+     # plot.list[[i]]<-surv
+   # }
+    
+    
     
   }  #for
   
   
   plot.list<-plot.list[!sapply(plot.list,is.null)]
   
-  if (length(plot.list)==0) {
-    
-    stop("")
-  }  
+  # if (length(plot.list)==0) {
+  #   
+  #   stop("")
+  # }  
   
   
   
@@ -206,7 +220,7 @@ MMRFVariant_SurvivalKM <- function(
   width <-20
   height <-30
   
-  if (!is.null(filename)) {
+  if (!is.null(filename) & length(plt)>0) {
     
     filenm<-paste0(filename,".pdf")
     path<-file.path(getwd())

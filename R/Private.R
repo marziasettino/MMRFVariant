@@ -302,13 +302,8 @@ MMRFVariant_SurvivalKM_Single <- function(
     if (length(unique(df.merge[, FilterBy])) == 1) {
        stop(
          paste0(
-           "Only this group found:\n",
-           unique(df.merge[, FilterBy],"with respect to ",SNP)
-         )
+           "Only one group is found with respect to",SNP)
        )
-
-     
-      
     }
     
   }#end

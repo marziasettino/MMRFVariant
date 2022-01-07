@@ -52,7 +52,13 @@ plot.impact.effect<-MMRFVariant_PlotbyEffect_Impact(variant.ann,ListSNPs,topN=50
 
 #-------------------Survival plots---------------
 
-KRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")$dbSNP
+KRAS_SNPs.tab<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")
+KRAS_SNPs<-KRAS_SNPs.tab[order(KRAS_SNPs.tab$count, decreasing = TRUE),]$dbSNP
+
+
+#KRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")$dbSNP
+
+
 #NRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"NRAS")$dbSNP
 #TP53_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"TP53")$dbSNP
 #FAM46C_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"FAM46C")$dbSNP
@@ -60,7 +66,7 @@ KRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")$dbSNP
 #BRAF_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"BRAF")$dbSNP
 
 #for a better visualization, we take into account only four SNPs 
-KRAS_SNPs<-head(KRAS_SNPs,4)
+KRAS_SNPs<-head(KRAS_SNPs,8)
 
 KRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,  
                                      trt,
@@ -75,6 +81,104 @@ KRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,
                                      color = c("Dark2"))
 
 
+
+
+
+KRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
+                                         trt,
+                                         variant.ann,
+                                         KRAS_SNPs,
+                                         FilterBy="Effect", 
+                                         filename="KM_Plot_KRAS_effect",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+
+KRAS_surv.Stage<-MMRFVariant_SurvivalKM(patient,  
+                                         trt,
+                                         variant.ann,
+                                         KRAS_SNPs,
+                                         FilterBy="Stage", 
+                                         filename="KM_Plot_KRAS_stage",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+
+NRAS_SNPs<-head(NRAS_SNPs,4)
+NRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,  
+                                            trt,
+                                            variant.ann,
+                                            NRAS_SNPs,
+                                            FilterBy="Treatment", 
+                                            filename="KM_Plot_NRAS_treatment",
+                                            xlim = c(100,3000),
+                                            height=22,
+                                            width=12,
+                                            conf.range = FALSE,
+                                            color = c("Dark2"))
+
+
+
+
+
+NRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
+                                         trt,
+                                         variant.ann,
+                                         NRAS_SNPs,
+                                         FilterBy="Effect", 
+                                         filename="KM_Plot_NRAS_effect",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+
+
+
+TP53_SNPs<-head(TP53_SNPs,8)
+TP53.treatment<-MMRFVariant_SurvivalKM(patient,  
+                                            trt,
+                                            variant.ann,
+                                            TP53_SNPs,
+                                            FilterBy="Treatment", 
+                                            filename="KM_Plot_TP53_treatment",
+                                            xlim = c(20,3000),
+                                            height=22,
+                                            width=12,
+                                            conf.range = FALSE,
+                                            color = c("Dark2"))
+
+
+
+
+
+TP53_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
+                                         trt,
+                                         variant.ann,
+                                         TP53_SNPs,
+                                         FilterBy="Effect", 
+                                         filename="KM_Plot_TP53_effect",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+
+
+
+#------------------------
 
 
 KRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
