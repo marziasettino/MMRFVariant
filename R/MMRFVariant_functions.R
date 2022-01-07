@@ -1,42 +1,42 @@
 
 
-MMRFVariant_GetSamplesbyVariant<- function(variant.ann, patient, Listvariant){
-  
-  if(is.null(Listvariant) || is.null(variant.ann) || is.null(patient)){
-    stop("Please provide the patient  or variant file.")
-  }else {
-    if(is.null(Listvariant)){
-      stop("Please provide a valid list of dbSNP ID.")
-    }
-    
-  }
-  
-  
-  names(variant.ann)[1]<-"public_id"
-  variant.ann$public_id<-substr(variant.ann$public_id,1,9)
-  
-   
-  
-  varint.ann.sub<-NULL
-  
-  for (rs.i in 1:length(Listvariant)) {
-    
-    var<-Listvariant[rs.i]
-    varint.ann.aux<-variant.ann[variant.ann$ID==var,]
-    varint.ann.sub<-rbind(varint.ann.sub,varint.ann.aux)
-    
-  } 
-  
-  
-  names(patient)[1]<-"public_id"
-  
- 
-  df.merge<-merge(x = patient, y = varint.ann.sub, by = "public_id")
-  
-  return(df.merge)
-}
-
-
+# MMRFVariant_GetSamplesbyVariant<- function(variant.ann, patient, Listvariant){
+#   
+#   if(is.null(Listvariant) || is.null(variant.ann) || is.null(patient)){
+#     stop("Please provide the patient  or variant file.")
+#   }else {
+#     if(is.null(Listvariant)){
+#       stop("Please provide a valid list of dbSNP ID.")
+#     }
+#     
+#   }
+#   
+#   
+#   names(variant.ann)[1]<-"public_id"
+#   variant.ann$public_id<-substr(variant.ann$public_id,1,9)
+#   
+#    
+#   
+#   varint.ann.sub<-NULL
+#   
+#   for (rs.i in 1:length(Listvariant)) {
+#     
+#     var<-Listvariant[rs.i]
+#     varint.ann.aux<-variant.ann[variant.ann$ID==var,]
+#     varint.ann.sub<-rbind(varint.ann.sub,varint.ann.aux)
+#     
+#   } 
+#   
+#   
+#   names(patient)[1]<-"public_id"
+#   
+#  
+#   df.merge<-merge(x = patient, y = varint.ann.sub, by = "public_id")
+#   
+#   return(df.merge)
+# }
+# 
+# 
 
 
 
@@ -54,15 +54,14 @@ MMRFVariant_GetSamplesbyVariant<- function(variant.ann, patient, Listvariant){
 #' @param FilterBy Column with groups to plot. This is a mandatory field.
 #' Example:
 #' \tabular{ll}{
-#'race \tab Race \cr
-#'stage \tab ISS Stage \cr
-#'treatment \tab  Treatment class \cr
-#'bestresp \tab Best overall response 	\cr
-#'gender \tab gender 	\cr
-#'effect \tab effect 	\cr
-#'biotype \tab biotype 	\cr
+#'Ethnicity \tab Ethnicity \cr
+#'Stage \tab ISS Stage \cr
+#'Treatment \tab  Treatment class \cr
+#'Bestresp \tab Best overall response 	\cr
+#'Gender \tab gender 	\cr
+#'Effect \tab effect 	\cr
+#'Biotype \tab biotype 	\cr
 #'}
-#' @param risk.table show or not the risk table
 #' @param expand show or not an expanded plot
 #' @param legend Legend title of the figure
 #' @param xlim x axis limits e.g. xlim = c(0, 1000). Present narrower X axis, but not affect survival estimates.
@@ -128,7 +127,6 @@ MMRFVariant_SurvivalKM <- function(
   trt,
   variant.ann,
   list.variant,
-  risk.table = FALSE,
   FilterBy = "treatment",
   legend = "Legend",
   labels = NULL,
@@ -143,13 +141,6 @@ MMRFVariant_SurvivalKM <- function(
   dpi = 300,
   pvalue = TRUE,
   conf.range = TRUE) {
-  
-  
-  
-  if (!all(c("D_PT_PRIMARYREASON", "D_PT_lstalive","D_PT_deathdy") %in% colnames(patient)))
-    stop(
-      "Missing Columns D_PT_PRIMARYREASON, D_PT_lstalive and  D_PT_deathdy in survival dataframe"
-    )
   
   
   
@@ -194,7 +185,7 @@ MMRFVariant_SurvivalKM <- function(
   
   
   plt<-arrange_ggsurvplots(plot.list, print = TRUE,title="KM Survival curves by SNP",
-                           ncol = 2, nrow = length(list.variant)/2, risk.table.height = 0.4)
+                           ncol = 2, nrow = length(list.variant)/2)
   
   
   width <-20
@@ -218,165 +209,12 @@ MMRFVariant_SurvivalKM <- function(
     message(paste0("File saved as: ", path))
     
     
-    if (risk.table) {
-      g1 <- ggplotGrob(plt$plot)
-      g2 <- ggplotGrob(plt$table)
-      min_ncol <- min(ncol(g2), ncol(g1))
-      g <-
-        gridExtra::gtable_rbind(g1[, 1:min_ncol], g2[, 1:min_ncol], size = "last")
-      ggsave(
-        g,
-        filename = filename,
-        width = width,
-        height = height,
-        dpi = dpi
-      )
-    }
+  
   } 
   
   return(plt)
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Get Impact
-
-#' @title MMRFVariant_GetImpact2 
-#' @description
-#' draws plot of annotated variants by Impact category and Effect
-#' @param variant.ann is the dataframe of annotated variants downloaded from MMRF-Commpass Researcher Gateway 
-#' (i.e. MMRF_CoMMpass_IA14a_All_Canonical_Variants file) and imported into environment
-#' @param Listvariant is the list of the variants to analyze.
-#' @param filenm is the name of the png file. If filenm is Null, the plot is draw but it is not saved.
-#' @param width Image width
-#' @param height Image height
-#' @import ggplot2
-#' @import dplyr 
-#' @export
-#' @examples
-#' variant.ann<- data.frame(public_id=c("MMRF_0000","MMRF_0001",
-#'                                      "MMRF_0002","MMRF_0003",
-#'                                      "MMRF_0004","MMRF_0005",
-#'                                      "MMRF_0006","MMRF_0007",
-#'                                      "MMRF_0008",""),                  
-#'                  dbSNP=c(rep("rs755588843",2),rep("rs569344016",5),rep("rs2066497",2),rep(".",1)),                                                    
-#'                  Effect=c(rep("intragenic_variant",3),
-#'                            rep("missense_variant",2),
-#'                            rep("intron_variant",1),
-#'                            rep("5_prime_UTR_variant",4)),
-#'                   Gene=c(rep("PRDM16",3),
-#'                            rep("AGO1",2),
-#'                            rep("FPGT-TNNI3K",1),
-#'                            rep("TNNI3K",4)), 
-#'                  REF=c(rep("C",3),
-#'                            rep("G",2),
-#'                            rep("A",1),
-#'                            rep("T",4)),                            
-#'                  ALT=c(rep("GGCCT",3),
-#'                            rep("G",2),
-#'                            rep("T",1),
-#'                            rep("A",4)),    
-             
-#'                   Biotype=c(rep("protein_coding",6),
-#'                            rep("antisense",2),
-#'                            rep("processed_pseudogene",2)),   
-#'                            
-#'                  Impact= c(rep("MODERATE",2),rep("MODIFIER",2),
-#'                             rep("LOW",3),rep("HIGH",2),rep("MODIFIER",1)),
-#'                  feature_type= c(rep("ENST00000388718",2),rep("ENST00000344616",2),
-#'                             rep("ENST00000431492",3),rep("ENST00000390268",2),rep("ENST00000316407",1)),
-#'                             
-#'                  SIFT= c(rep("0.035,0.035,0.057,0.057,0.035,0.042,0.04,0.058",2),rep("0.002,0.002,0.001,0.002",2),
-#'                             rep("0.614,0.614,0.781",6)),           
-#'                             
-#'                  Polyphen2=c(rep("0.021,0.986,0.884,0.977",2),rep("0.99",2),
-#'                             rep("0.614,0.781",6))           
-#'                                                               
-#'                                  
-#'  )
-#' 
-#' 
-#' 
-#' 
-#' 
-#' impact<-MMRFVariant_GetImpact2(variant.ann,Listvariant)
-#' @export
-#' @return provides Impact plot and table
-
-
-MMRFVariant_GetImpact2<- function(variant.ann,Listvariant,filenm="PlotImpact",height=10, width=10){
-  
-  
-  
-  if(is.null(variant.ann) || is.null(Listvariant)){
-    stop("Please provide the file of the annotated variants and/or list of variants.")
-  }
-  
-  
-  variant.ann.sub<- MMRFVariant_getVariantAnn(variant.ann)
-
-  
-  variant.ann.sub<-dplyr::select(variant.ann,public_id,dbSNP,
-                                 Effect,Gene,Biotype,Impact)
-  
-  
-  
-  
-  
-  variant.ann.sub<-unique(variant.ann.sub)
-  variant.ann.sub<-subset(variant.ann.sub, variant.ann.sub$dbSNP != "." & !is.nan(variant.ann.sub$dbSNP))
-  
-  
-  variant.ann.sub<- variant.ann.sub[variant.ann.sub$dbSNP %in% Listvariant, ] 
-  
-  variant.summary<-variant.ann.sub %>% group_by(dbSNP,Effect,Impact) %>% summarize(n(),.groups = 'drop')
-  names(variant.summary)[4]<-"count"
-  
-  
-  
-  
-  plt<- ggplot(variant.summary,aes(dbSNP, count, fill = Effect)) +
-    geom_col(position = "dodge") +
-    theme_bw()+
-    facet_wrap(~Impact,scales = "free_x")
-  
-  
-  if (!is.null(filenm)) {
-    
-    filename<-paste0(filenm,".pdf")
-    path<-file.path(getwd())
-    path<-paste0(path,"/","ResultsPlot","/")
-    
-    ggsave(
-      filename = filename,
-      path = path,
-      width = width,
-      height = height,
-      units = "in"
-    )
-    message(paste0("File saved as: ", path))
-    
-    
-  }
-  return(plt)
-  
-}
-
-
-
-
 
 
 #Plot variants by gene list

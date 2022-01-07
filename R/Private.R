@@ -173,9 +173,59 @@ addImpacts <- function(df) {
 
 #------------------------------------------------
 
+MMRFVariant_SelectMerge<- function(variant.ann, patient, trt, ListSNPs){
+  
+  if(is.null(ListSNPs) || is.null(variant.ann) || is.null(patient)|| is.null(trt)){
+    stop("Please provide the patient / variant treatment files.")
+  }
+  
+  
+  
+  names(variant.ann)[1]<-"public_id"
+  variant.ann<-dplyr::select(variant.ann,public_id,X.CHROM,POS,ID,REF,
+                             ALT,ANN....ALLELE,
+                             ANN....EFFECT,ANN....IMPACT,
+                             ANN....GENE,ANN....FEATURE,ANN....BIOTYPE
+  )
+  
+  
+  
+  variant.ann$public_id<-substr(variant.ann$public_id,1,9)
+  variant.ann<-variant.ann[variant.ann$ID %in% ListSNPs,] 
+  
+  names(patient)[1]<-"public_id"
+  patient<-dplyr::select(patient,public_id,D_PT_PRIMARYREASON,
+                         D_PT_lstalive,D_PT_deathdy,
+                         DEMOG_ETHNICITY,D_PT_issstage_char,DEMOG_GENDER
+  )
+  
+  
+  trt<-dplyr::select(trt,public_id,bestresp,trtclass)
+  
+  
+  df.merge<-merge(x = patient, y = variant.ann, by = "public_id")
+  df.merge<-merge(x = df.merge, y = trt, by = "public_id")
+  
+  
+  
+  df.merge <- df.merge %>%
+    rename(Ethnicity=DEMOG_ETHNICITY,
+           Stage=D_PT_issstage_char,
+           Treatment=trtclass,
+           Bestresp=bestresp,
+           Gender=DEMOG_GENDER,
+           dbSNP=ID,
+           Effect=ANN....EFFECT,
+           Biotype=ANN....BIOTYPE
+    )
+  
+  return(df.merge)
+}
 
 
-#' @title MMRFVariant_SurvivalKM_Summary
+#----------------------------------------------
+
+#' @title MMRFVariant_Survival_Single
 #' @description Creates a survival plot from MMRF-RG patient clinical data
 #' using survival library. It uses the fields D_PT_deathdy, D_PT_PRIMARYREASON and D_PT_lstalive
 #' columns for groups.
@@ -186,7 +236,6 @@ addImpacts <- function(df) {
 #' @param variant.ann is the data.frame of the annotated variants downloaded from MMRF-Commpass Researcher Gateway 
 #' (i.e. MMRF_CoMMpass_IA15a_All_Canonical_Variants file) and imported into environment.
 #' @param Listvariant is the list of the variants to analyze.
-#' @param risk.table show or not the risk table
 #' @param legend Legend title of the figure
 #' @param xlim x axis limits e.g. xlim = c(0, 1000). Present narrower X axis, but not affect survival estimates.
 #' @param main main title of the plot
@@ -207,50 +256,12 @@ addImpacts <- function(df) {
 #' @import stringr
 #' @return Survival plot
 #' @examples
-#' 
-#' patient <- data.frame(public_id=c("MMRF_0000","MMRF_0001",
-#'                                    "MMRF_0002","MMRF_0003",
-#'                                    "MMRF_0004","MMRF_0005",
-#'                                    "MMRF_0006","MMRF_0007",
-#'                                    "MMRF_0008","MMRF_0009"),
-#'                       D_PT_PRIMARYREASON = c("Death",NA,NA,"Death","Death", 
-#'                                              "Death","NA","NA","Death","Death"),
-#'                       D_PT_deathdy =  c(NA,NA,2226,172,NA,NA,1328,681,786,NA),
-#'                       D_PT_lstalive = c(250,356,NA,NA,1814,223,NA,NA,NA,1450),
-#'                       DEMOG_GENDER = c(rep(1,5),rep(2,5)), #2 stands for female, 1 standas for male#'                       
-#'                       DEMOG_ETHNICITY=c(rep("Hispanic or Latino",5),rep("Not Hispanic or Latino",5)),
-#'                       D_PT_issstage_char=c(rep("Stage III",3),rep("Stage II",2),rep("Stage I",5))
-#'  )
-#' 
-#' 
-#' trt<- data.frame(public_id=c("MMRF_0000","MMRF_0001",
-#'                               "MMRF_0002","MMRF_0003",
-#'                               "MMRF_0004","MMRF_0005",
-#'                               "MMRF_0006","MMRF_0007",
-#'                               "MMRF_0008","MMRF_0009"),
-#'                  trtclass=c(rep("Bortezomib-based",2),rep("IMIDs-based",5),rep("combined bortezomib/IMIDs-based",3)),                                                    
-#'                  bestresp=c(rep("Partial Responsed",5),rep("Very Good Partial Response",5))               
-#'                                    
-#'  )
-#' 
-#' 
-#' 
-#'     surv<-MMRFVariant_SurvivalKM_Summary(patient,  
-#                                          trt,
-#                                          variant.ann,
-#                                          Listvariant1,
-#                                          FilterBy="treatment", 
-#                                          filename=NULL,
-#                                          xlim = c(100,3000),
-#                                          conf.range = FALSE,
-#                                          color = c("Dark2"))
 
 MMRFVariant_SurvivalKM_Single <- function(
   patient,
   trt,
   variant.ann,
-  list.variant,
-  risk.table = FALSE,
+  SNP,
   FilterBy = NULL,
   legend = "Legend",
   labels = NULL,
@@ -266,34 +277,19 @@ MMRFVariant_SurvivalKM_Single <- function(
   pvalue = TRUE,
   conf.range = TRUE) {
   
-  patient<-MMRFVariant_GetSamplesbyVariant(variant.ann,patient,list.variant)
+
+  
+    df.merge<-MMRFVariant_SelectMerge(variant.ann, patient, trt, SNP)
+  
+
   
   
+   if (is.null(color)) {
+     color <- rainbow(length(unique(df.merge[, FilterBy])))
+    }
   
+    group <- NULL
   
-  condition <- c("race","stage","treatment","bestresp","gender","dbSNP","effect","biotype")
-  parameter <- c("DEMOG_ETHNICITY", "D_PT_issstage_char","trtclass","bestresp","DEMOG_GENDER","ID","ANN....EFFECT","ANN....BIOTYPE")
-  tab.condition <- data.frame(condition, parameter)
-  
-  
-  names(patient)[1]<-"public_id"
-  
-  patient<-dplyr::select(patient,public_id,D_PT_PRIMARYREASON,
-                         D_PT_lstalive,D_PT_deathdy,
-                         DEMOG_ETHNICITY,D_PT_issstage_char,DEMOG_GENDER
-  )
-  
-  
-  
-  df.merge<-merge(x = patient, y = trt, by = "public_id", type=left)
-  
-  
-  
-  if (is.null(color)) {
-    color <- rainbow(length(unique(patient[, FilterBy])))
-  }
-  
-  group <- NULL
   
   
   
@@ -301,8 +297,7 @@ MMRFVariant_SurvivalKM_Single <- function(
   if (is.null(FilterBy)) {
     stop("Please provide a value for FilterBy parameter")
   } else {
-    par<-tab.condition[tab.condition$condition==FilterBy,]$parameter  #check tab.condition 
-    FilterBy<-par
+  
     
     if (length(unique(df.merge[, FilterBy])) == 1) {
       #  stop(
@@ -310,7 +305,7 @@ MMRFVariant_SurvivalKM_Single <- function(
         "Only this group found:\n",
         unique(df.merge[, FilterBy])
       )
-      #)
+     
     }
   }#end
   
@@ -361,9 +356,8 @@ MMRFVariant_SurvivalKM_Single <- function(
     
     
     surv <- survminer::ggsurvplot( 
-      fit,
-      risk.table = risk.table,
-      df.merge,
+      fit=fit,
+      data=df.merge,
       pval = pvalue,
       conf.range = conf.range,
       xlim = xlim,
@@ -378,10 +372,10 @@ MMRFVariant_SurvivalKM_Single <- function(
   })
   
   
-  list.variant.str<-toString(list.variant)
+  SNP<-toString(SNP)
   
   
-  surv<-surv+ labs(title = paste("dbSNP Variant:",list.variant.str))
+  surv<-surv+ labs(title = paste("dbSNP Variant:",SNP))
   
   
   
@@ -402,20 +396,7 @@ MMRFVariant_SurvivalKM_Single <- function(
     message(paste0("File saved as: ", path))
     
     
-    if (risk.table) {
-      g1 <- ggplotGrob(surv$plot)
-      g2 <- ggplotGrob(surv$table)
-      min_ncol <- min(ncol(g2), ncol(g1))
-      g <-
-        gridExtra::gtable_rbind(g1[, 1:min_ncol], g2[, 1:min_ncol], size = "last")
-      ggsave(
-        g,
-        filename = filename,
-        width = width,
-        height = height,
-        dpi = dpi
-      )
-    }
+    
   } 
   
   return(surv)
