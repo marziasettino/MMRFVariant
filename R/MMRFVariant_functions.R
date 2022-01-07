@@ -163,7 +163,6 @@ MMRFVariant_SurvivalKM <- function(
                                    variant.ann,
                                    list.variant[i],
                                    FilterBy=FilterBy, 
-                                   filename=NULL,
                                    xlim = c(100,3000),
                                    height=height,
                                    widt=width,
@@ -171,16 +170,32 @@ MMRFVariant_SurvivalKM <- function(
                                    color = c("Dark2"))
       
     }, error = function(e) {
+      print(paste("Only this group found with respect to: ",list.variant[i]))
       i<-i+1
-      print(paste("ERROR",list.variant[i]))
+    },warning = function(e) {
+      print(paste("Only this group found with respect to:",list.variant[i]))
+      i<-i+1
+    },finally = function(f) {
+      print(paste("Only this group found with respect to:\n",list.variant[i]))
+      i<-i+1
     }
-    )  
-    plot.list[[i]]<-surv
+    
+    )  #tryCatch
+    
+    
+    if (!is.null(surv)) {
+      plot.list[[i]]<-surv
+    } 
     
   }  #for
   
   
   plot.list<-plot.list[!sapply(plot.list,is.null)]
+  
+  if (length(plot.list)==0) {
+    
+    stop("")
+  }  
   
   
   

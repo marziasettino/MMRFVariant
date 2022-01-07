@@ -269,7 +269,7 @@ MMRFVariant_SurvivalKM_Single <- function(
   main = "Kaplan-Meier Survival Curve",
   ylab = "Probability of survival",
   xlab = "Time since diagnosis (days)",
-  filename = "survival.pdf",
+ # filename = "survival.pdf",
   color = NULL,
   height = 5,
   width = 12,
@@ -277,7 +277,7 @@ MMRFVariant_SurvivalKM_Single <- function(
   pvalue = TRUE,
   conf.range = TRUE) {
   
-
+   
   
     df.merge<-MMRFVariant_SelectMerge(variant.ann, patient, trt, SNP)
   
@@ -300,17 +300,21 @@ MMRFVariant_SurvivalKM_Single <- function(
   
     
     if (length(unique(df.merge[, FilterBy])) == 1) {
-      #  stop(
-      paste0(
-        "Only this group found:\n",
-        unique(df.merge[, FilterBy])
-      )
+       stop(
+         paste0(
+           "Only this group found:\n",
+           unique(df.merge[, FilterBy],"with respect to ",SNP)
+         )
+       )
+
      
+      
     }
+    
   }#end
   
   
-  
+
   notDead <- is.na(df.merge$D_PT_deathdy)
   
   if (any(notDead == TRUE)) {
@@ -379,25 +383,25 @@ MMRFVariant_SurvivalKM_Single <- function(
   
   
   
-  if (!is.null(filename)) {
-    
-    filenm<-paste0(filename,".pdf")
-    path<-file.path(getwd())
-    path<-paste0(path,"/","ResultsPlot","/",filenm)
-    
-    ggsave(
-      surv$plot,
-      filename = path,
-      # device = pdf,
-      width = width,
-      height = height,
-      units = "in"
-    )
-    message(paste0("File saved as: ", path))
-    
-    
-    
-  } 
+  # if (!is.null(filename)) {
+  #   
+  #   filenm<-paste0(filename,".pdf")
+  #   path<-file.path(getwd())
+  #   path<-paste0(path,"/","ResultsPlot","/",filenm)
+  #   
+  #   ggsave(
+  #     surv$plot,
+  #     filename = path,
+  #     # device = pdf,
+  #     width = width,
+  #     height = height,
+  #     units = "in"
+  #   )
+  #   message(paste0("File saved as: ", path))
+  #   
+  #   
+  #   
+  # } 
   
   return(surv)
   
