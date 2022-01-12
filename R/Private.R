@@ -378,25 +378,6 @@ MMRFVariant_SurvivalKM_Single <- function(
   
   
   
-  # if (!is.null(filename)) {
-  #   
-  #   filenm<-paste0(filename,".pdf")
-  #   path<-file.path(getwd())
-  #   path<-paste0(path,"/","ResultsPlot","/",filenm)
-  #   
-  #   ggsave(
-  #     surv$plot,
-  #     filename = path,
-  #     # device = pdf,
-  #     width = width,
-  #     height = height,
-  #     units = "in"
-  #   )
-  #   message(paste0("File saved as: ", path))
-  #   
-  #   
-  #   
-  # } 
   
   return(surv)
   

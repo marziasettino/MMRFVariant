@@ -52,28 +52,28 @@ plot.impact.effect<-MMRFVariant_PlotbyEffect_Impact(variant.ann,ListSNPs,topN=50
 
 #-------------------Survival plots---------------
 
-KRAS_SNPs.tab<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")
-KRAS_SNPs<-KRAS_SNPs.tab[order(KRAS_SNPs.tab$count, decreasing = TRUE),]$dbSNP
+#KRAS_SNPs.tab<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")
+#KRAS_SNPs<-KRAS_SNPs.tab[order(KRAS_SNPs.tab$count, decreasing = TRUE),]$dbSNP
+
+NRAS_SNPs.tab<-MMRFVariant_GetVariantsbyGene(variant.ann,"NRAS")
+NRAS_SNPs<-NRAS_SNPs.tab[order(NRAS_SNPs.tab$count, decreasing = TRUE),]$dbSNP
 
 
-#KRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"KRAS")$dbSNP
-
-
-#NRAS_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"NRAS")$dbSNP
 #TP53_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"TP53")$dbSNP
 #FAM46C_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"FAM46C")$dbSNP
 #DIS3_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"DIS3")$dbSNP
 #BRAF_SNPs<-MMRFVariant_GetVariantsbyGene(variant.ann,"BRAF")$dbSNP
 
-#for a better visualization, we take into account only four SNPs 
-KRAS_SNPs<-head(KRAS_SNPs,8)
+#We take into account only the top six SNPs by occurrence (see <KRAS_SNPs.tab>)
+NRAS_SNPs<-head(NRAS_SNPs,5)
 
-KRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,  
+
+NRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,  
                                      trt,
                                      variant.ann,
-                                     KRAS_SNPs,
+                                     NRAS_SNPs,
                                      FilterBy="Treatment", 
-                                     filename="KM_Plot_KRAS_treatment",
+                                     filename="KM_Plot_NRAS_treatment",
                                      xlim = c(100,3000),
                                      height=22,
                                      width=12,
@@ -81,44 +81,163 @@ KRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,
                                      color = c("Dark2"))
 
 
+# (*) SNPs are discarded if:
+# a) only a group with respect to FilterBy parameter is found
+# b) pvalue is>=0.05
+#One descarded the SNPs, the resulting SNP dataset is: 
+
+NRAS_SNPs.disc<-c("rs11554290","rs121913254","rs121913237", "rs121913255")
 
 
-
-KRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
-                                         trt,
-                                         variant.ann,
-                                         KRAS_SNPs,
-                                         FilterBy="Effect", 
-                                         filename="KM_Plot_KRAS_effect",
-                                         xlim = c(100,3000),
-                                         height=22,
-                                         width=12,
-                                         conf.range = FALSE,
-                                         color = c("Dark2"))
-
-
-
-KRAS_surv.Stage<-MMRFVariant_SurvivalKM(patient,  
-                                         trt,
-                                         variant.ann,
-                                         KRAS_SNPs,
-                                         FilterBy="Stage", 
-                                         filename="KM_Plot_KRAS_stage",
-                                         xlim = c(100,3000),
-                                         height=22,
-                                         width=12,
-                                         conf.range = FALSE,
-                                         color = c("Dark2"))
-
-
-
-NRAS_SNPs<-head(NRAS_SNPs,4)
-NRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,  
+    
+NRAS_surv.treatment.disc<-MMRFVariant_SurvivalKM(patient,  
                                             trt,
                                             variant.ann,
-                                            NRAS_SNPs,
+                                            NRAS_SNPs.disc,
                                             FilterBy="Treatment", 
-                                            filename="KM_Plot_NRAS_treatment",
+                                            filename="KM_Plot_NRAS_treatment_disc",
+                                            xlim = c(100,2000),
+                                            height=15,
+                                            width=12,
+                                            conf.range = FALSE,
+                                            color = c("Dark2"))
+
+
+
+
+
+
+NRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  #no significant results are found (all pvalue>0.05)
+                                         trt,
+                                         variant.ann,
+                                         NRAS_SNPs,
+                                         FilterBy="Effect", 
+                                         filename="KM_Plot_NRAS_effect",
+                                         xlim = c(100,100),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+# see (*)
+NRAS_surv.Stage<-MMRFVariant_SurvivalKM(patient,  
+                                         trt,
+                                         variant.ann,
+                                         NRAS_SNPs,
+                                         FilterBy="Stage", 
+                                         filename="KM_Plot_NRAS_stage",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+NRAS_SNPs.disc<-c("rs121913254")
+
+
+
+NRAS_surv.Stage.disc<-MMRFVariant_SurvivalKM(patient,  
+                                        trt,
+                                        variant.ann,
+                                        NRAS_SNPs.disc,
+                                        FilterBy="Stage", 
+                                        filename="KM_Plot_NRAS_stage_disc",
+                                        xlim = c(100,2000),
+                                        height=22,
+                                        width=12,
+                                        conf.range = FALSE,
+                                        color = c("Dark2"))
+
+
+# see (*)
+NRAS_surv.Bestresp<-MMRFVariant_SurvivalKM(patient,  
+                                        trt,
+                                        variant.ann,
+                                        NRAS_SNPs,
+                                        FilterBy="Bestresp", 
+                                        filename="KM_Plot_NRAS_bestresp",
+                                        xlim = c(100,3000),
+                                        height=22,
+                                        width=12,
+                                        conf.range = FALSE,
+                                        color = c("Dark2"))
+
+
+
+NRAS_SNPs.disc<-c("rs11554290","rs121913254","rs121434595", "rs121913237")
+
+NRAS_surv.Bestresp.disc<-MMRFVariant_SurvivalKM(patient,  
+                                           trt,
+                                           variant.ann,
+                                           NRAS_SNPs.disc,
+                                           FilterBy="Bestresp", 
+                                           filename="KM_Plot_NRAS_bestresp_disc",
+                                           xlim = c(100,3000),
+                                           height=22,
+                                           width=12,
+                                           conf.range = FALSE,
+                                           color = c("Dark2"))
+
+
+
+
+
+
+# see (*)
+
+NRAS_surv.Gender<-MMRFVariant_SurvivalKM(patient,  #All SNPs have pvalue<=0.05
+                                           trt,
+                                           variant.ann,
+                                           NRAS_SNPs,
+                                           FilterBy="Gender", 
+                                           filename="KM_Plot_NRAS_gender",
+                                           xlim = c(100,3000),
+                                           height=22,
+                                           width=12,
+                                           conf.range = FALSE,
+                                           color = c("Dark2"))
+
+
+
+
+# see (*)
+
+NRAS_surv.Biotype<-MMRFVariant_SurvivalKM(patient,  #All SNPs have have only a group with respect to FilterBy parameter 
+                                         trt,
+                                         variant.ann,
+                                         NRAS_SNPs,
+                                         FilterBy="Biotype", 
+                                         filename="KM_Plot_NRAS_biotype",
+                                         xlim = c(100,3000),
+                                         height=22,
+                                         width=12,
+                                         conf.range = FALSE,
+                                         color = c("Dark2"))
+
+
+
+# see (*)
+NRAS_surv.Ethnicity<-MMRFVariant_SurvivalKM(patient,  
+                                          trt,
+                                          variant.ann,
+                                          NRAS_SNPs,
+                                          FilterBy="Ethnicity", 
+                                          filename="KM_Plot_NRAS_ethnicity",
+                                          xlim = c(100,3000),
+                                          height=22,
+                                          width=12,
+                                          conf.range = FALSE,
+                                          color = c("Dark2"))
+
+NRAS_SNPs.disc<-c("rs11554290","rs121913254","rs121913237")
+
+NRAS_surv.Ethnicity<-MMRFVariant_SurvivalKM(patient,  
+                                            trt,
+                                            variant.ann,
+                                            NRAS_SNPs.disc,
+                                            FilterBy="Ethnicity", 
+                                            filename="KM_Plot_NRAS_ethnicity_disc",
                                             xlim = c(100,3000),
                                             height=22,
                                             width=12,
@@ -128,108 +247,6 @@ NRAS_surv.treatment<-MMRFVariant_SurvivalKM(patient,
 
 
 
-
-NRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
-                                         trt,
-                                         variant.ann,
-                                         NRAS_SNPs,
-                                         FilterBy="Effect", 
-                                         filename="KM_Plot_NRAS_effect",
-                                         xlim = c(100,3000),
-                                         height=22,
-                                         width=12,
-                                         conf.range = FALSE,
-                                         color = c("Dark2"))
-
-
-
-
-
-TP53_SNPs<-head(TP53_SNPs,8)
-TP53.treatment<-MMRFVariant_SurvivalKM(patient,  
-                                            trt,
-                                            variant.ann,
-                                            TP53_SNPs,
-                                            FilterBy="Treatment", 
-                                            filename="KM_Plot_TP53_treatment",
-                                            xlim = c(20,3000),
-                                            height=22,
-                                            width=12,
-                                            conf.range = FALSE,
-                                            color = c("Dark2"))
-
-
-
-
-
-TP53_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
-                                         trt,
-                                         variant.ann,
-                                         TP53_SNPs,
-                                         FilterBy="Effect", 
-                                         filename="KM_Plot_TP53_effect",
-                                         xlim = c(100,3000),
-                                         height=22,
-                                         width=12,
-                                         conf.range = FALSE,
-                                         color = c("Dark2"))
-
-
-
-
-
-#------------------------
-
-
-KRAS_surv.Effect<-MMRFVariant_SurvivalKM(patient,  
-                                          trt,
-                                          variant.ann,
-                                          KRAS_SNPs,
-                                          FilterBy="Effect", 
-                                          filename="KM_Plot_KRAS_effect",
-                                          xlim = c(100,3000),
-                                          height=22,
-                                          width=12,
-                                          conf.range = FALSE,
-                                          color = c("Dark2"))
-
-
-KRAS_surv.Stage<-MMRFVariant_SurvivalKM(patient,  
-                                          trt,
-                                          variant.ann,
-                                          KRAS_SNPs,
-                                          FilterBy="Stage", 
-                                          filename="KM_Plot_KRAS_stage",
-                                          xlim = c(100,3000),
-                                          height=22,
-                                          width=12,
-                                          conf.range = FALSE,
-                                          color = c("Dark2"))
-
-
-KRAS_surv.Bestresp<-MMRFVariant_SurvivalKM(patient,  
-                                          trt,
-                                          variant.ann,
-                                          KRAS_SNPs,
-                                          FilterBy="Bestresp", 
-                                          filename="KM_Plot_KRAS_bestresp",
-                                          xlim = c(100,3000),
-                                          height=22,
-                                          width=12,
-                                          conf.range = FALSE,
-                                          color = c("Dark2"))
-
-KRAS_surv.Gender<-MMRFVariant_SurvivalKM(patient,  
-                                          trt,
-                                          variant.ann,
-                                          KRAS_SNPs,
-                                          FilterBy="Gender", 
-                                          filename="KM_Plot_KRAS_gender",
-                                          xlim = c(100,3000),
-                                          height=22,
-                                          width=12,
-                                          conf.range = FALSE,
-                                          color = c("Dark2"))
 
 
 

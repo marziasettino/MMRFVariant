@@ -19,7 +19,7 @@ MMRFVariant_PlotVariantsbyGene(
 
 \item{ListGene}{is the list of the genes to analyze.}
 
-\item{topN}{is the top number of variant count}
+\item{topN}{is the top number of variant count to visualize}
 
 \item{filenm}{is the name of the png file. If filenm is Null, the plot is draw but it is not saved.}
 

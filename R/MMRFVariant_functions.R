@@ -163,11 +163,13 @@ MMRFVariant_SurvivalKM <- function(
                                    variant.ann,
                                    list.variant[i],
                                    FilterBy=FilterBy, 
-                                   xlim = c(100,3000),
+                                   xlim=xlim,
+                                   legend=legend,
                                    height=height,
                                    widt=width,
                                    conf.range = FALSE,
-                                   color = c("Dark2"))
+                                   color = c("Dark2"),
+                                   pvalue=pvalue)
       
       plot.list[[i]]<-surv
       
@@ -184,37 +186,26 @@ MMRFVariant_SurvivalKM <- function(
     
     )  #tryCatch
     
-    # result = tryCatch({ 
-    #   surv
-    #   plot.list[[i]]<-surv
-    # }, error = function(e) {
-    #   print(paste("mmmmmmmmmmm"))
-    #   i<-i+1
-    # }
-    # )
-    
-    
-    
-   # if (!is.null(surv)) {
-     # plot.list[[i]]<-surv
-   # }
-    
-    
-    
+   
   }  #for
   
   
   plot.list<-plot.list[!sapply(plot.list,is.null)]
   
-  # if (length(plot.list)==0) {
-  #   
-  #   stop("")
-  # }  
   
   
+  if((length(list.variant) %% 2) == 0) {
+    nr<-length(list.variant)/2
+  } else {
+    nr<-trunc(length(list.variant)/2)+1
+    
+  }
   
-  plt<-arrange_ggsurvplots(plot.list, print = TRUE,title="KM Survival curves by SNP",
-                           ncol = 2, nrow = length(list.variant)/2)
+  plt<-arrange_ggsurvplots(plot.list, print = TRUE,title=main,
+                           ncol = 2, nrow = nr)
+  
+ # plt<-arrange_ggsurvplots(plot.list, print = TRUE,title=main,
+#                           ncol = 2, nrow = length(list.variant)/2)
   
   
   width <-20

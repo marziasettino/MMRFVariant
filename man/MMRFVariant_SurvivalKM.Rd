@@ -9,8 +9,6 @@ MMRFVariant_SurvivalKM(
   trt,
   variant.ann,
   list.variant,
-  risk.table = FALSE,
-  expand = FALSE,
   FilterBy = "treatment",
   legend = "Legend",
   labels = NULL,
@@ -37,20 +35,16 @@ MMRFVariant_SurvivalKM(
 \item{variant.ann}{is the data.frame of the annotated variants downloaded from MMRF-Commpass Researcher Gateway 
 (i.e. MMRF_CoMMpass_IA15a_All_Canonical_Variants file) and imported into environment.}
 
-\item{risk.table}{show or not the risk table}
-
-\item{expand}{show or not an expanded plot}
-
 \item{FilterBy}{Column with groups to plot. This is a mandatory field.
 Example:
 \tabular{ll}{
-race \tab Race \cr
-stage \tab ISS Stage \cr
-treatment \tab  Treatment class \cr
-bestresp \tab Best overall response     \cr
-gender \tab gender     \cr
-effect \tab effect     \cr
-biotype \tab biotype     \cr
+Ethnicity \tab Ethnicity \cr
+Stage \tab ISS Stage \cr
+Treatment \tab  Treatment class \cr
+Bestresp \tab Best overall response     \cr
+Gender \tab gender     \cr
+Effect \tab effect     \cr
+Biotype \tab biotype     \cr
 }}
 
 \item{legend}{Legend title of the figure}
@@ -80,6 +74,8 @@ biotype \tab biotype     \cr
 \item{conf.range}{show confidence intervals for point estimates of survival curves.}
 
 \item{Listvariant}{is the list of the variants to analyze.}
+
+\item{expand}{show or not an expanded plot}
 }
 \value{
 Survival plot

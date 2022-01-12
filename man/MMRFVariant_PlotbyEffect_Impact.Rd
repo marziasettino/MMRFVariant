@@ -6,6 +6,7 @@
 \usage{
 MMRFVariant_PlotbyEffect_Impact(
   variant.ann,
+  ListSNPs,
   topN = 20,
   filenm = "PlotbyEffectImpact",
   height = 10,
@@ -23,6 +24,8 @@ MMRFVariant_PlotbyEffect_Impact(
 \item{height}{Image height}
 
 \item{width}{Image width}
+
+\item{ListSNP}{is the list of the SNPs to analyze.}
 }
 \value{
 plot with the top count of the dbSNP variant categorized by Impact
