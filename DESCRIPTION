@@ -3,11 +3,10 @@ Type: Package
 Title: R package for variant analysis from MMRF-CoMMpass data source
 Version: 2.0.0
 Author: Marzia Settino
-Maintainer: Marzia Settino <marzia.settino@studenti.unicz.it>
-Description: MMRFBiolinks is developed with the aim of performing an 
+Maintainer: Marzia Settino <marzia.settino@unicz.it>
+Description: MMRFVariant is developed with the aim of performing an 
              integrative analysis on MM data sourcing from 
-             i) NCI-GDCData Portal and
-             ii) MMRF Research Gateway.
+             MMRF Research Gateway.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

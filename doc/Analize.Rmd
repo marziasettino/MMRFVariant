@@ -8,14 +8,24 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+### <b>MMRFVariant_SurvivalKM function:</b>
+
+It performs a Kaplan-Meier (KM) survival analysis that takes into account clinical data and annotated variants form MMRF-RG. Beside of the list of SNPs (<ListSNPs>) to analyze, it requires all three the following datasets:<br>
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+
+patient <- read.csv("~/MMRF_CoMMpass_IA15_PER_PATIENT")
+trt <- read.csv("~/MMRF_CoMMpass_IA15_STAND_ALONE_TRTRESP")
+variant.ann <- read.csv("~/MMRF_CoMMpass_IA15a_All_Canonical_Variants")
+
+
 ```
+<br>
+ 
 
-
-## <b>MMRFVariant_SurvivalKM</b>
-
-Perform a Kaplan-Meier (KM) survival analysis that takes into account MMRF-RG clinical data and annotated variants. 
+### <b>MMRFVariant_SurvivalKM parameters:</b>
 
 **Arguments** | **Description**
 -----|-----
@@ -41,38 +51,25 @@ conf.range|  show confidence intervals for point estimates of survival curves.
 dpi| Figure quality
 
 
-### Example 1:
-<b>Listvariant</b> is the list of the variants to analyze:
+### <b>MMRFVariant_SurvivalKM <FilterBy> parameter:</b>
+
+The KM survival curves are drawn with respect to the <FilterBy> parameter that can be set for stratifying the patients cohort into the categories shown in the following Table:
+
+
+**Arguments** | **Description**
+-----|-----
+Ethnicity | Ethnicity 
+Stage | ISS Stage
+Treatment |  Treatment class
+Bestresp |  Best overall response
+Gender |  Female or Male
+Effect |  Effect Type of observed mutation
+Biotype |  Gene biotype
 
 
 
-```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
 
-Listvariant<-c("rs2157615","rs61731685","rs370560636","rs116293337")
-
-surv<-MMRFVariant_SurvivalKM(patient,  
-                              trt,
-                              variant.ann,
-                              Listvariant,
-                              FilterBy="treatment", 
-                              filename=NULL,
-                              xlim = c(100,3000),
-                              conf.range = FALSE,
-                              color = c("Dark2"))
-```
-<div class="panel panel-info">
-<div class="panel-heading"><b>Resulting plot</b></div>
-<div class="panel-body">
-</div>
-</div>
-The following plot shows the KM Survival curves correlated to <b>Listvariant</b> with respect to variants (i.e. <b>dbSNP ID</b>)  and <b>Therapy class</b>.
-
-```{r figurename1, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
-knitr::include_graphics("imgs/KM_Survival_Compact.png")
-```
-
-
-### Example 2:
+### Example:
 
 <p align="justify">With respect to the previous plot, the following plot shows an expanded overview of the KM survival curves in order to facilitate comparison between the survival curves for each variant with respect to treatment.
 Like the previous example, <b>Listvariant</b> is the list of the variants to analyze while in this case the  <b>expand</b> parameter is set to TRUE. </p>

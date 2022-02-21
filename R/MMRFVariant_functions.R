@@ -148,7 +148,7 @@ MMRFVariant_SurvivalKM <- function(
     stop("Please provide the file of treatment-response and/or patient.")
   }
   
-
+  
   plot.list <- list()
   surv<-NULL
   
@@ -159,17 +159,17 @@ MMRFVariant_SurvivalKM <- function(
     
     result = tryCatch({ 
       surv<-MMRFVariant_SurvivalKM_Single(patient,  
-                                   trt,
-                                   variant.ann,
-                                   list.variant[i],
-                                   FilterBy=FilterBy, 
-                                   xlim=xlim,
-                                   legend=legend,
-                                   height=height,
-                                   widt=width,
-                                   conf.range = FALSE,
-                                   color = c("Dark2"),
-                                   pvalue=pvalue)
+                                          trt,
+                                          variant.ann,
+                                          list.variant[i],
+                                          FilterBy=FilterBy, 
+                                          xlim=xlim,
+                                          legend=legend,
+                                          height=height,
+                                          widt=width,
+                                          conf.range = FALSE,
+                                          color = c("Dark2"),
+                                          pvalue=pvalue)
       
       plot.list[[i]]<-surv
       
@@ -186,7 +186,7 @@ MMRFVariant_SurvivalKM <- function(
     
     )  #tryCatch
     
-   
+    
   }  #for
   
   
@@ -204,8 +204,8 @@ MMRFVariant_SurvivalKM <- function(
   plt<-arrange_ggsurvplots(plot.list, print = TRUE,title=main,
                            ncol = 2, nrow = nr)
   
- # plt<-arrange_ggsurvplots(plot.list, print = TRUE,title=main,
-#                           ncol = 2, nrow = length(list.variant)/2)
+  # plt<-arrange_ggsurvplots(plot.list, print = TRUE,title=main,
+  #                           ncol = 2, nrow = length(list.variant)/2)
   
   
   width <-20
@@ -229,7 +229,7 @@ MMRFVariant_SurvivalKM <- function(
     message(paste0("File saved as: ", path))
     
     
-  
+    
   } 
   
   return(plt)
@@ -341,21 +341,21 @@ MMRFVariant_PlotVariantsbyGene<- function(variant.ann,ListGene=NULL,topN=20,file
   
   if(is.null(ListGene)){
     
-   
+    
     variant.summary<- head(variant.summary,topN)
     msg<-paste0(" - top count=",topN)
     
   } else{
-   
-  
+    
+    
     variant.summary<- variant.summary[variant.summary$Gene %in% ListGene, ] 
     variant.summary<- head(variant.summary,topN)
     msg<-""
   }
   
-
   
- 
+  
+  
   
   plt<-ggplot(data = variant.summary, aes(x=dbSNP, y=Gene, fill=count)) + 
     geom_tile(color = "white", size = 0.2)+ylab("Genes") +
@@ -370,10 +370,10 @@ MMRFVariant_PlotVariantsbyGene<- function(variant.ann,ListGene=NULL,topN=20,file
     labs(fill = "Case Count") +
     ggtitle(paste0("Heatmap of the number of variants occurrence",msg))
   
-      
   
   
- 
+  
+  
   
   
   if (!is.null(filenm)) {
@@ -498,12 +498,12 @@ MMRFVariant_GetVariantsbyGene<- function(variant.ann,ListGene=NULL){
   
   variant.list<-variant.list[order(variant.list$count, decreasing = TRUE),]
   
-    
-    
-  variant.list<- variant.list[variant.list$Gene %in% ListGene, ] 
-    
   
- 
+  
+  variant.list<- variant.list[variant.list$Gene %in% ListGene, ] 
+  
+  
+  
   
   
   
@@ -653,25 +653,25 @@ MMRFVariant_PlotbyEffect_Impact<- function(variant.ann, ListSNPs, topN=20,filenm
         axis.text.y = element_text(hjust = 1,face="bold",size = 11))+
     ggtitle("Variants by Effect and Impact")+ labs(x = "N variant")+labs(y = "dbSNP IDs")+
     
-  
-  
-  
-  if (!is.null(filenm)) {
     
-    filename<-paste0(filenm,".pdf")
-    path<-file.path(getwd())
-    path<-paste0(path,"/","ResultsPlot","/")
     
-    ggsave(
-      filename = filename,
-      path = path,
-      width = width,
-      height = height,
-      units = "in"
-    )
-    message(paste0("File saved as: ", path))
     
-  }
+    if (!is.null(filenm)) {
+      
+      filename<-paste0(filenm,".pdf")
+      path<-file.path(getwd())
+      path<-paste0(path,"/","ResultsPlot","/")
+      
+      ggsave(
+        filename = filename,
+        path = path,
+        width = width,
+        height = height,
+        units = "in"
+      )
+      message(paste0("File saved as: ", path))
+      
+    }
   return(plt)
   
 }
@@ -751,7 +751,7 @@ MMRFVariant_getImpact<- function(variant.ann, ListSNPs){
     stop("Please provide the file of the annotated variants/ListSNPs")
   }
   
- # rename columns
+  # rename columns
   variant.ann.temp<-MMRFVariant_getVariantAnn(variant.ann)
   
   variant.ann.sub<-variant.ann.temp[variant.ann.temp$dbSNP %in% ListSNPs,] 
@@ -763,7 +763,7 @@ MMRFVariant_getImpact<- function(variant.ann, ListSNPs){
   #add column (Max damaging impact)
   variant.ann.sub<-addImpacts(variant.ann.sub)
   
- 
+  
   
   impact.table<-table_formatter(variant.ann.sub)
   impact.table<-subset(impact.table, impact.table$min_SIFT != "" & 

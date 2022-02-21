@@ -26,14 +26,14 @@ ListGene<-c("KRAS", "NRAS","TP53","FAM46C","DIS3","BRAF")
 
 
 variants.plot<-MMRFVariant_PlotVariantsbyGene(variant.ann,ListGene,height=20, width=30,topN=50,
-                                              filenm="PlotVariantsbyGene_heatmap")
+                                              filenm="PlotVarbyGene_heatmap")
 #step 2 - Get the SNPs found in genes of <ListGene>
 
 ListSNPs.bycount<-MMRFVariant_GetVariantsbyGene(variant.ann,ListGene)
 ListSNPs<-ListSNPs.bycount$dbSNP
 
 
-#step 3.2 -  generates the impact table (ordered by ascending SIFT and descending Poliphen)
+#step 3 -  Perform the impact table (ordered by ascending SIFT and descending Poliphen)
 impact.table<-MMRFVariant_getImpact(variant.ann,ListSNPs)
 
    #For semplification purposes, we visualize a subset of columns and rows

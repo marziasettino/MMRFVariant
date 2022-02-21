@@ -20,11 +20,16 @@ knitr::opts_chunk$set(
 
 
 
-
-
-
 ```{r setup}
 library(MMRFVariant)
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(stringr)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(formattable)
 ```
 
 
@@ -44,17 +49,16 @@ library(ggpubr)
 <div class="panel panel-info">
 <div class="panel-body">
 <p align="justify">
-MMRF-CoMMpass data can be retrieved directly from [MMRF-Commpass Researcher Gateway](https://research.themmrf.org/)
-The user can download this dataset from MMRF-Commpass Researcher Gateway importing it as a dataframe into R environment.
+MMRF-CoMMpass data can be retrieved directly from [MMRF-Commpass Researcher Gateway](https://research.themmrf.org/). They can be downloaded and imported as a dataframe into R environment.
 </p>
 
 </div>
 </div>
 
-### Get MMRF-COMMPASS data at MMRF-CoMMpass Research Gateway
+### Fetching and importing MMRF-COMMPASS datasets
 
 <p align="justify">
-In this example we will fetch  MMRF-CoMMpass information data from MMRF-COMMPASS Research Gateway. Once the dataset (.csv files) is imported into our own R environment, it is can be explored  as a R-dataframe.
+In this example we will fetch the MMRF-CoMMpass data from MMRF-COMMPASS Research Gateway (MMRF-RG). Once the dataset (.csv files) is imported into our own R environment, it is can be explored  as a R-dataframe.
 </p>
 
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
@@ -67,25 +71,49 @@ variant.ann <- read.csv("~/MMRF_CoMMpass_IA15a_All_Canonical_Variants")
 ```
 
 
-### Examples of MMRF-COMMPASS dataframe
+### MMRFVariant functions
+
+<p align="justify">
+The table below shows an overview of the MMRFVariant functions and their outputs.
+</p>
+
+**Function** | **Output**
+-----|-----
+MMRFVariant_PlotbyEffect_Impact | N# of variants classified by Impact and Effect  
+MMRFVariant_PlotVariantsbyGene | Heatmap of the N# of variants  
+MMRFVariant_GetVariantsbyGene |  list of SNPs occurring in the gene set
+MMRFVariant_SurvivalKM |  KM Survival curves
+MMRFVariant_getImpact |  Impact table of SNPs
+
+### MMRFVariant Use-Case
+For a more intuitive interpretation of the results, MMRFVariant provides a graphical or tabular representation of the outputs.
+The use-case diagram shown below provides an overview of the MMRFVariant functionalities and the different scenarios that can be performed.
+
+```{r figurename2, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
+knitr::include_graphics("imgs/UseCase.png")
+```
+
+
+
+### Testing MMRFVariant functions
   
+
+
+<p align="justify">
+In order to test the MMRFVariant functions (without fetch MMRF-CoMMpass data from MMRF-RG), three fictitious datasets are provided in the "data" directory:<br>
+
+- <variant.ann.example> <br>
+- <patient.example> <br>
+- <trt.example> <br>
+
+They replicate the original datasets format icluding only some fileds with respect to MMRF-CoMMpass datasets (.csv files) downloaded from MMRF-COMMPASS Research Gateway. 
+</p>
 
 <div class="panel panel-info">
 <div class="panel-heading"><b>Annotated variant dataframe</b></div>
 <div class="panel-body">
 </div>
 </div>
-<p align="justify">
-In order to test the provided functionalities without fetch  MMRF-CoMMpass information data from MMRF-COMMPASS Research Gateway, we provide the fictitious datasets:<br>
-
-- <variant.ann.example> <br>
-- <patient.example> <br>
-- <trt.example> <br>
-
-In this case, you should comment the previous code that fetches the MMRF-CoMMpass datasets (.csv files) from MMRF-COMMPASS Research Gateway 
-</p>
-
-
 
 
 ```{r  echo=TRUE, message=FALSE, warning=FALSE}
@@ -114,7 +142,11 @@ datatable(trt.example,options = list(scrollX = TRUE, keys = TRUE))
 
 ```
 
-
+# Session Information
+******
+```{r sessionInfo}
+sessionInfo()
+```
 
 
 

@@ -269,7 +269,7 @@ MMRFVariant_SurvivalKM_Single <- function(
   main = "Kaplan-Meier Survival Curve",
   ylab = "Probability of survival",
   xlab = "Time since diagnosis (days)",
- # filename = "survival.pdf",
+  # filename = "survival.pdf",
   color = NULL,
   height = 5,
   width = 12,
@@ -277,18 +277,18 @@ MMRFVariant_SurvivalKM_Single <- function(
   pvalue = TRUE,
   conf.range = TRUE) {
   
-   
-  
-    df.merge<-MMRFVariant_SelectMerge(variant.ann, patient, trt, SNP)
-  
-
   
   
-   if (is.null(color)) {
-     color <- rainbow(length(unique(df.merge[, FilterBy])))
-    }
+  df.merge<-MMRFVariant_SelectMerge(variant.ann, patient, trt, SNP)
   
-    group <- NULL
+  
+  
+  
+  if (is.null(color)) {
+    color <- rainbow(length(unique(df.merge[, FilterBy])))
+  }
+  
+  group <- NULL
   
   
   
@@ -297,19 +297,19 @@ MMRFVariant_SurvivalKM_Single <- function(
   if (is.null(FilterBy)) {
     stop("Please provide a value for FilterBy parameter")
   } else {
-  
+    
     
     if (length(unique(df.merge[, FilterBy])) == 1) {
-       stop(
-         paste0(
-           "Only one group is found with respect to",SNP)
-       )
+      stop(
+        paste0(
+          "Only one group is found with respect to",SNP)
+      )
     }
     
   }#end
   
   
-
+  
   notDead <- is.na(df.merge$D_PT_deathdy)
   
   if (any(notDead == TRUE)) {

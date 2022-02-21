@@ -8,6 +8,14 @@ knitr::opts_chunk$set(
 
 ## ----setup--------------------------------------------------------------------
 library(MMRFVariant)
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(stringr)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(formattable)
 
 ## ---- echo = FALSE,hide=TRUE, message=FALSE,warning=FALSE---------------------
 devtools::load_all(".")
@@ -27,6 +35,9 @@ library(ggpubr)
 #  
 #  
 
+## ----figurename2, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'----
+knitr::include_graphics("imgs/UseCase.png")
+
 ## ----echo=TRUE, message=FALSE, warning=FALSE----------------------------------
 datatable(variant.ann.example,options = list(scrollX = TRUE, keys = TRUE))
 
@@ -38,4 +49,7 @@ datatable(patient.example,options = list(scrollX = TRUE, keys = TRUE))
 ## ----echo=TRUE, message=FALSE, warning=FALSE----------------------------------
 datatable(trt.example,options = list(scrollX = TRUE, keys = TRUE))
 
+
+## ----sessionInfo--------------------------------------------------------------
+sessionInfo()
 
