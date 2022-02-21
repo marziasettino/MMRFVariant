@@ -53,7 +53,7 @@ This case study shows how MMRFVariant performs the integrative analysis of varia
 For a more intuitive interpretation of the results, MMRFVariant provides a graphical or tabular representation of the outputs.
 The Figure below shows the workflow that describes graphically step by step the procedure carried out to perform this case of study. </br>
 
-```{r figurename="workflow", echo=FALSE, fig.cap="workflow that describes graphically step by step the procedure carried out to perform this case of study ", out.width = '99%'}
+```{r figurename="workflow", echo=FALSE, fig.cap="Fig. 1 The workflow describes graphically step by step the procedure carried out to perform this case of study ", out.width = '99%'}
 knitr::include_graphics("imgs/workflow.png")
 ```
 
@@ -70,13 +70,14 @@ knitr::include_graphics("imgs/workflow.png")
 
 
 ### <b> Set the list of gene <ListGene> to analyze </b>
+First of all, the list of gene <ListGene> to analyze is set.
 
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
 ListGene<-c("KRAS", "NRAS","TP53","FAM46C","DIS3","BRAF")
 
 
 ```
-### <b> Step 1 -  to draw the Heatmap of the N# of variants occurrence in "ListGene" </b>
+### <b> Step 1 -  to draw the Heatmap of the N# of variants occurring in "ListGene" </b>
 
 
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
@@ -95,7 +96,9 @@ variant.impact_effect
 knitr::include_graphics("imgs/PlotVariantsbyGene_heatmap.png")
 ```
 
-### <b> Step 2 - Get the SNPs found in genes of <ListGene> </b>
+### <b> Step 2 - identify the SNPs </b>
+We identify the SNPs in genes of "ListGene".
+
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
 
 ListSNPs.bycount<-MMRFVariant_GetVariantsbyGene(variant.ann,ListGene)
@@ -107,6 +110,8 @@ ListSNPs<-ListSNPs.bycount$dbSNP
 
 
 ### <b>Step 3 -  Perform the impact table of each SNP in "GeneList" (ordered by ascending SIFT and descending Poliphen) </b>
+We perform the impact table of each SNP in "GeneList". The impacts values are ordered by ascending SIFT and descending Poliphen scores.
+
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
 impact.table<-MMRFVariant_getImpact(variant.ann,ListSNPs)
 
