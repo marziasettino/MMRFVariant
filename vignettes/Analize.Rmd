@@ -1,7 +1,7 @@
 ---
-title: "MMRFVariant - Analyze"
+title: "Analyze"
 package: MMRFVariant
-output: rmarkdown::html_vignette
+#output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. Analyze}
   %\VignetteEngine{knitr::rmarkdown}
@@ -71,17 +71,27 @@ Biotype |  Gene biotype
 
 ### Example:
 
-<p align="justify">The following plots show the KM survival curves for each variant (i.e. <b>dbSNP ID</b>) in <b>Listvariant</b> with respect to the treatment (i.e. <b>Therapy class</b>).
+<p align="justify">The following plots show the KM survival curves for each variant (i.e. dbSNP ID) in "ListSNPs_NRAS" (we focus on NRAS gene) with respect to the:<br>
+
+- treatment (i.e. Therapy class)<br>
+- Stage <br>
+- Bestresp <br>
+- Ethnicity.<br>
+
+Note that Only the KM curves with pvalue$<$0.05 are shown.
+For simplification purposes, we take into account only the top five SNPs by occurrence.</p>
+
+
+<!--# TREATMENT-->
 
 ```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
-
-Listvariant<-c("rs2157615","rs61731685","rs370560636","rs116293337")
+NRAS_SNPs<-head(ListSNPs_NRAS,5) #["rs2157615","rs61731685","rs370560636","rs116293337"]
 
 surv<-MMRFVariant_SurvivalKM(patient,  
                               trt,
                               variant.ann,
-                              Listvariant,
-                              FilterBy="treatment", 
+                              NRAS_SNPs,
+                              FilterBy="Treatment", 
                               filename=NULL,
                               xlim = c(100,3000),
                               conf.range = FALSE,
@@ -100,10 +110,112 @@ surv<-MMRFVariant_SurvivalKM(patient,
 </div>
 </div>
 
-```{r figurename2, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
-knitr::include_graphics("imgs/KM_Survival_Expanded.png")
+```{r figurename2, echo=FALSE, fig.cap="KM survival curves are drawn for each SNP found in the NRAS gene in the case of the FilterBy parameter is set to Treatment", out.width = '99%'}
+knitr::include_graphics("imgs/KM_Surv_treatment.png")
 ```
 
+
+<!--# STAGE-->
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+NRAS_SNPs<-head(ListSNPs_NRAS,5) #["rs2157615","rs61731685","rs370560636","rs116293337"]
+
+surv<-MMRFVariant_SurvivalKM(patient,  
+                              trt,
+                              variant.ann,
+                              NRAS_SNPs,
+                              FilterBy="Stage", 
+                              filename=NULL,
+                              xlim = c(100,3000),
+                              conf.range = FALSE,
+                              color = c("Dark2"))
+
+
+
+
+```
+
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+
+```{r figurename3, echo=FALSE, fig.cap="KM survival curves are drawn for each SNP found in the NRAS gene in the case of the FilterBy parameter is set to Stage", out.width = '50%'}
+knitr::include_graphics("imgs/KM_Surv_stage.png")
+```
+
+
+
+<!--# ETHNICITY-->
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+NRAS_SNPs<-head(ListSNPs_NRAS,5) #["rs2157615","rs61731685","rs370560636","rs116293337"]
+
+surv<-MMRFVariant_SurvivalKM(patient,  
+                              trt,
+                              variant.ann,
+                              NRAS_SNPs,
+                              FilterBy="Ethnicity", 
+                              filename=NULL,
+                              xlim = c(100,3000),
+                              conf.range = FALSE,
+                              color = c("Dark2"))
+
+
+
+
+```
+
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+
+```{r figurename4, echo=FALSE, fig.cap="KM survival curves are drawn for each SNP found in the NRAS gene in the case of the FilterBy parameter is set to Ethnicity", out.width = '99%'}
+knitr::include_graphics("imgs/KM_Surv_ethnicity.png")
+```
+
+
+
+
+
+<!--# BESTRESP-->
+
+```{r results = 'hide', message=FALSE, warning=FALSE, eval = F}
+NRAS_SNPs<-head(ListSNPs_NRAS,5) #["rs2157615","rs61731685","rs370560636","rs116293337"]
+
+surv<-MMRFVariant_SurvivalKM(patient,  
+                              trt,
+                              variant.ann,
+                              NRAS_SNPs,
+                              FilterBy="Bestresp", 
+                              filename=NULL,
+                              xlim = c(100,3000),
+                              conf.range = FALSE,
+                              color = c("Dark2"))
+
+
+
+
+```
+
+
+
+<div class="panel panel-info">
+<div class="panel-heading"><b>Resulting plot</b></div>
+<div class="panel-body">
+</div>
+</div>
+
+```{r figurename5, echo=FALSE, fig.cap="KM survival curves are drawn for each SNP found in the NRAS gene in the case of the FilterBy parameter is set to Bestresp", out.width = '99%'}
+knitr::include_graphics("imgs/KM_Surv_Bestresp.png")
+```
 
 
 

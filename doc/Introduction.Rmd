@@ -79,11 +79,11 @@ The table below shows an overview of the MMRFVariant functions and their outputs
 
 **Function** | **Output**
 -----|-----
-MMRFVariant_PlotbyEffect_Impact | N# of variants classified by Impact and Effect  
+MMRFVariant_PlotbyEffectImpact | N# of variants classified by Impact and Effect  
 MMRFVariant_PlotVariantsbyGene | Heatmap of the N# of variants  
 MMRFVariant_GetVariantsbyGene |  list of SNPs occurring in the gene set
 MMRFVariant_SurvivalKM |  KM Survival curves
-MMRFVariant_getImpact |  Impact table of SNPs
+MMRFVariant_GetImpact |  Impact table of SNPs
 
 ### MMRFVariant Use-Case
 For a more intuitive interpretation of the results, MMRFVariant provides a graphical or tabular representation of the outputs.
@@ -95,18 +95,18 @@ knitr::include_graphics("imgs/UseCase.png")
 
 
 
-### fictitious datasets useful to test MMRFVariant functions
+### Testing MMRFVariant functions
   
 
 
 <p align="justify">
-In order to test the MMRFVariant functions (without fetch MMRF-CoMMpass data from MMRF-RG), three fictitious datasets are provided below:<br>
+In order to test the MMRFVariant functions (without fetch MMRF-CoMMpass data from MMRF-RG), three fictitious datasets are provided in the "data" directory:<br>
 
 - <variant.ann.example> <br>
 - <patient.example> <br>
 - <trt.example> <br>
 
-They replicate the original datasets format icluding only some fileds. To reproduce this example you should comment the previous code that fetches the MMRF-CoMMpass datasets (.csv files) from MMRF-COMMPASS Research Gateway. 
+They replicate the original datasets format icluding only some fileds with respect to MMRF-CoMMpass datasets (.csv files) downloaded from MMRF-COMMPASS Research Gateway. 
 </p>
 
 <div class="panel panel-info">

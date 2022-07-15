@@ -1,44 +1,5 @@
 
 
-# MMRFVariant_GetSamplesbyVariant<- function(variant.ann, patient, Listvariant){
-#   
-#   if(is.null(Listvariant) || is.null(variant.ann) || is.null(patient)){
-#     stop("Please provide the patient  or variant file.")
-#   }else {
-#     if(is.null(Listvariant)){
-#       stop("Please provide a valid list of dbSNP ID.")
-#     }
-#     
-#   }
-#   
-#   
-#   names(variant.ann)[1]<-"public_id"
-#   variant.ann$public_id<-substr(variant.ann$public_id,1,9)
-#   
-#    
-#   
-#   varint.ann.sub<-NULL
-#   
-#   for (rs.i in 1:length(Listvariant)) {
-#     
-#     var<-Listvariant[rs.i]
-#     varint.ann.aux<-variant.ann[variant.ann$ID==var,]
-#     varint.ann.sub<-rbind(varint.ann.sub,varint.ann.aux)
-#     
-#   } 
-#   
-#   
-#   names(patient)[1]<-"public_id"
-#   
-#  
-#   df.merge<-merge(x = patient, y = varint.ann.sub, by = "public_id")
-#   
-#   return(df.merge)
-# }
-# 
-# 
-
-
 
 #' @title MMRFVariant_SurvivalKM
 #' @description Creates a KM survival plot from MMRF-RG patient clinical data
@@ -536,7 +497,7 @@ MMRFVariant_GetVariantsbyGene<- function(variant.ann,ListGene=NULL){
 
 #Plot variants by Effect and Impact categories
 
-#' @title MMRFVariant_PlotbyEffect_Impact 
+#' @title MMRFVariant_PlotbyEffectImpact 
 #' @description
 #' draws plot of annotated variants by Impact and Effect
 #' @param topN is the top number of variant count
@@ -594,12 +555,12 @@ MMRFVariant_GetVariantsbyGene<- function(variant.ann,ListGene=NULL){
 #' 
 #' 
 #' 
-#' summary.plot<-MMRFVariant_PlotbyEffect_Impact(variant.ann,topN=50,height=10, width=15, filenm="PlotbyEffect")
+#' summary.plot<-MMRFVariant_PlotbyEffectImpact(variant.ann,topN=50,height=10, width=15, filenm="PlotbyEffect")
 #' @export
 #' @return plot with the top count of the dbSNP variant categorized by Impact
 
 
-MMRFVariant_PlotbyEffect_Impact<- function(variant.ann, ListSNPs, topN=20,filenm="PlotbyEffectImpact", height=10, width=10){
+MMRFVariant_PlotbyEffectImpact<- function(variant.ann, ListSNPs, topN=20,filenm="PlotbyEffectImpact", height=10, width=10){
   
   if(is.null(variant.ann) || is.null(ListSNPs)){
     stop("Please provide the file of the annotated variants or the SNPs List.")
@@ -685,7 +646,7 @@ MMRFVariant_PlotbyEffect_Impact<- function(variant.ann, ListSNPs, topN=20,filenm
 
 #Get Impact by variants 
 
-#' @title MMRFVariant_getImpact 
+#' @title MMRFVariant_GetImpact 
 #' @description
 #' get Impact of the variants in the input ListSNPs
 #' @param variant.ann is the dataframe of annotated variants downloaded from MMRF-Commpass Researcher Gateway 
@@ -739,13 +700,13 @@ MMRFVariant_PlotbyEffect_Impact<- function(variant.ann, ListSNPs, topN=20,filenm
 #' ListSNPs<-c("rs755588843","rs200556051","rs745587729","rs2066497","rs760494041")
 #' 
 #' 
-#' impact.table<-MMRFVariant_getImpact(variant.ann,ListSNPs)
+#' impact.table<-MMRFVariant_GetImpact(variant.ann,ListSNPs)
 #' @export
 #' @return summary table aggregating and summarizing data about annotated variants
 
 #-------------------------------------------------------------------------
 
-MMRFVariant_getImpact<- function(variant.ann, ListSNPs){
+MMRFVariant_GetImpact<- function(variant.ann, ListSNPs){
   
   if(is.null(variant.ann) || is.null(ListSNPs)){
     stop("Please provide the file of the annotated variants/ListSNPs")

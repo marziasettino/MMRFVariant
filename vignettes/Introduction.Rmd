@@ -79,17 +79,17 @@ The table below shows an overview of the MMRFVariant functions and their outputs
 
 **Function** | **Output**
 -----|-----
-MMRFVariant_PlotbyEffect_Impact | N# of variants classified by Impact and Effect  
+MMRFVariant_PlotbyEffectImpact | N# of variants classified by Impact and Effect  
 MMRFVariant_PlotVariantsbyGene | Heatmap of the N# of variants  
 MMRFVariant_GetVariantsbyGene |  list of SNPs occurring in the gene set
 MMRFVariant_SurvivalKM |  KM Survival curves
-MMRFVariant_getImpact |  Impact table of SNPs
+MMRFVariant_GetImpact |  Impact table of SNPs
 
 ### MMRFVariant Use-Case
 For a more intuitive interpretation of the results, MMRFVariant provides a graphical or tabular representation of the outputs.
 The use-case diagram shown below provides an overview of the MMRFVariant functionalities and the different scenarios that can be performed.
 
-```{r figurename2, echo=FALSE, fig.cap="KM Survival curves ", out.width = '99%'}
+```{r figurename2, echo=FALSE, fig.cap="Use-case diagram that represents the high-level functionalities of MMRFVariant", out.width = '99%'}
 knitr::include_graphics("imgs/UseCase.png")
 ```
 
